@@ -1,0 +1,16 @@
+{
+    "name": "plageHorraire",
+    "columns": {
+        "id": {
+            "type": "int",
+            "primary": true,
+            "generated": true
+        },
+        "heureDebut": {
+            "type": "varchar"
+        },
+        "heureFin": {
+            "type": "varchar"
+        }
+    }
+}

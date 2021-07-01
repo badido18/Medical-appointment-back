@@ -1,0 +1,19 @@
+{
+    "name": "patient",
+    "columns": {
+        "id": {
+            "type": "int",
+            "primary": true,
+            "generated": true
+        },
+        "userId": {
+            "type": "int"
+        },
+        "fullName": {
+            "type": "varchar"
+        },
+        "phone": {
+            "type": "varchar"
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "name": "medecin",
+    "columns": {
+        "id": {
+            "type": "int",
+            "primary": true,
+            "generated": true
+        },
+        "fullName": {
+            "type": "varchar"
+        },
+        "phone": {
+            "type": "varchar"
+        },
+        "city": {
+            "type": "varchar"
+        },
+        "speciality": {
+            "type": "varchar"
+        },
+        "longitude": {
+            "type": "long"
+        },
+        "latitude": {
+            "type": "long"
+        },
+        "imageUrl": {
+            "type": "varchar"
+        },
+        "userId": {
+            "type": "int"
+        }
+    }
+}

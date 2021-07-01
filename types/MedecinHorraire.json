@@ -1,0 +1,11 @@
+{
+    "name": "conseil",
+    "columns": {
+        "medecinId": {
+            "type": "int"
+        },
+        "plageHorraireId": {
+            "type": "varchar"
+        }
+    }
+}

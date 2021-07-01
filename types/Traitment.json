@@ -1,0 +1,16 @@
+{
+    "name": "traitment",
+    "columns": {
+        "id": {
+            "type": "int",
+            "primary": true,
+            "generated": true
+        },
+        "rdvId": {
+            "type": "int"
+        },
+        "description": {
+            "type": "varchar"
+        }
+    }
+}

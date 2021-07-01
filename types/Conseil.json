@@ -1,0 +1,19 @@
+{
+    "name": "conseil",
+    "columns": {
+        "id": {
+            "type": "int",
+            "primary": true,
+            "generated": true
+        },
+        "traitementId": {
+            "type": "int"
+        },
+        "type": {
+            "type": "varchar"
+        },
+        "description": {
+            "type": "varchar"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "rdv",
+    "columns": {
+        "id": {
+            "type": "int",
+            "primary": true,
+            "generated": true
+        },
+        "plageHorraireId": {
+            "type": "int"
+        },
+        "medecinId": {
+            "type": "int"
+        },
+        "patientId": {
+            "type": "int"
+        },
+        "state": {
+            "type": "varchar"
+        },
+        "date": {
+            "type": "varchar"
+        }
+    }
+}

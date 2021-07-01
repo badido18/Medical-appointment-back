@@ -1,0 +1,19 @@
+{
+    "name": "user",
+    "columns": {
+        "id": {
+            "type": "int",
+            "primary": true,
+            "generated": true
+        },
+        "email": {
+            "type": "varchar"
+        },
+        "password": {
+            "type": "varchar"
+        },
+        "type": {
+            "type": "varchar"
+        }
+    }
+}
