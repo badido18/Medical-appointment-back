@@ -6,7 +6,7 @@
             "primary": true,
             "generated": true
         },
-        "traitementId": {
+        "traitmentId": {
             "type": "int"
         },
         "type": {
