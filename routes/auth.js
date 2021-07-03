@@ -5,7 +5,7 @@ const router = Router()
 
 router.get('/', adminCheck, getUsers)
 router.get('/patients',adminCheck,  getPatients)
-router.get('/medecins',adminCheck,  getMedecins)
+router.get('/medecins', getMedecins)
 router.get('/:id',adminCheck, getUser)
 router.post('/add',adminCheck , addUser)
 router.delete('/:id',adminCheck, deleteUser)
