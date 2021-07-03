@@ -11,6 +11,8 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "node server.js"
-  }
+    "test": "node server.js",
+    "build" : "webpack"
+  },
+  "heroku-run-build-script": true
 }
