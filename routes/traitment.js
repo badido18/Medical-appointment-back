@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const { addTrait, deleteTrait, getTraits, getAllTraits } = require('../controllers/rdvController')
+const { addTrait, deleteTrait, getTraits, getAllTraits } = require('../controllers/traitmentController')
 
 const router = Router()
 

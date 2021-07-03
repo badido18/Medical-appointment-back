@@ -19,10 +19,10 @@
             "type": "varchar"
         },
         "longitude": {
-            "type": "long"
+            "type": "float"
         },
         "latitude": {
-            "type": "long"
+            "type": "float"
         },
         "imageUrl": {
             "type": "varchar"

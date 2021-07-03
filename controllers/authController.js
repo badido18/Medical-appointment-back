@@ -5,46 +5,87 @@ const generateToken = require('../lib/token')
 const { error, success } = require("../lib/response")
 
 const User = getRepository("user")
-/*
-function getAdmins(req, res) {
-    Admin.find()
-    .then(admins => {
-        res.send(success("liste des admins", admins))
+const Patient = getRepository("patient")
+const Medecin = getRepository("medecin")
+
+
+const getUsers = (req, res) => {
+    User.find()
+    .then(users => {
+        res.send(success("list of users : ", users))
     })
     .catch(err => {
         res.send(error(err.message));
     })
 }
 
-function getAdmin(req, res) {
-    Admin.find({ id: req.params.id })
-    .then(admin => {
-        res.send(success("admin of id " + req.params.id, admin))
+
+const getPatients = (req, res) => {
+    Patient.find()
+    .then(users => {
+        res.send(success("list of patients : ", users))
     })
     .catch(err => {
         res.send(error(err.message));
     })
 }
 
-async function postAdmin(req, res) {
-    const { nom, prenom, num_telephone, adresse, motDePasse } = req.body
+const getMedecins = (req, res) => {
+    Medecin.find()
+    .then(users => {
+        res.send(success("list of medecins : ", users))
+    })
+    .catch(err => {
+        res.send(error(err.message));
+    })
+}
+
+
+const getUser = (req, res) => {
+    User.findOne({ id: parseInt(req.params.id) })
+    .then(user => {
+        if (user){
+            if (user.type==="patient")
+                Patient.findOne({userId : user.id})
+                .then(patient =>  res.send(success("patient of userid " + req.params.id, {...user,...patient})))
+                .catch (err => res.send(error(err.message)))
+            else if (user.type==="medecin")
+                Medecin.findOne({userId : user.id})
+                .then(medecin =>  res.send(success("medecin of userid " + req.params.id, {...user,...medecin})))
+                .catch (err => res.send(error(err.message)))
+            else
+                res.send(error("false user type."))
+        }
+        else {
+            res.send(error("no user found."))
+        }
+    })
+    .catch(err => {
+        res.send(error(err.message));
+    })
+}
+
+const addUser = async (req, res) => {
+    const { email, password, type , body } = req.body
     
     try {
         const salt = await bcrypt.genSalt(10)
-        const password = await bcrypt.hash(motDePasse, salt)
+        const hshpaswd = await bcrypt.hash(password, salt)
 
-        getRepository('admin').save({
-            nom,
-            prenom,
-            num_telephone,
-            adresse,
-            motDePasse: password
+        User.save({
+            email,
+            password : hshpaswd ,
+            type,
         })
-        .then(admin => {
-            const token = generateToken({ id: admin.id })
-            
-            res.header("auth", token)
-            res.send(success("user cree avec succes", admin))
+        .then(user => {
+            if (type==="patient")
+                Patient.save({...body, userId : user.id})
+                .then(patient => res.send(success("patient cree avec succes", patient)))
+                .catch (err => res.send(error(err.message)))
+            if (type==="medecin")
+                Medecin.save({...body, userId : user.id})
+                .then(patient => res.send(success("medecin cree avec succes", patient)))
+                .catch (err => res.send(error(err.message)))
         })
         .catch(err => {
             res.send(error(err.message));
@@ -56,55 +97,55 @@ async function postAdmin(req, res) {
     }
 }
 
-function deleteAdmin(req, res) {
-    Admin.delete({ id: req.params.id })
-    .then(admins => {
-        res.send(success("admin supprime avec succes", admins))
+const deleteUser = (req, res) => {
+    User.delete({ id: req.params.id })
+    .then(user => {
+        Patient.delete({userId :req.params.id  })
+        .then(patient => {
+            if(!patient.affected)
+                Medecin.delete({userId :req.params.id  })
+                .then(med => med.affected ? res.send(success("Medecin supprime avec succes", med)): res.send(success("Aucune suppression n'a ete effectue")) )
+                .catch (err => res.send(error(err.message)))
+            else
+                res.send(success("patient supprime avec succes", patient))
+        })
+        .catch (err => res.send(error(err.message)))
+        
     })
     .catch(err => {
         res.send(error(err.message));
     })
 }
 
-function putAdmin(req, res) {
-    Admin.update({ ...req.body, id: req.params.id })
-    .then(admins => {
-        res.send(success("admin modifie avec succes", admins))
-    })
-    .catch(err => {
-        res.send(error(err.message));
-    })
-}
 
-function signIn(req, res) {
-    const { num_telephone, motDePasse } = req.body;
+const login = (req, res) => {
+    const { email, password } = req.body;
 
-    if (!num_telephone || !motDePasse) {
+    if (!email || !password) {
         res.status(400).send(error("invalid payload: " + JSON.stringify(req.body)))
     }
 
-    Admin.find({ num_telephone })
+    User.findOne({ email })
     .then(user => {
-        if (user.length === 0) {
+        if (!user) {
             res.send(error("no account found."))
             return
         }
-
-        const isMatch = bcrypt.compareSync(motDePasse, user[0].motDePasse)
-        if (!isMatch) {
-            res.send(error("incorrect password."))
-        } else {
-            const token = generateToken({ id: user[0].id })
-
-            res.header("auth", token)
-            res.send(success("login success"))
+        else {
+            const isMatch = bcrypt.compareSync(password, user.password)
+            if (!isMatch) {
+                res.send(error("incorrect password"))
+            } else {
+                const token = generateToken({ id: user[0].id , type: user[0].type})
+                res.send(success("login success !",{id:user.id,type: user.type,token}))
+            }
         }
     })
     .catch(err => {
         console.log(err)
-        res.send(error("incorrect num tel"))
+        res.send(error("Unexpected error occured"))
     })
 }
 
-*/
-//module.exports = { addUser, linkUserId, deletetUser, login } 
+
+module.exports = { addUser, deleteUser, login , getUser , getUsers ,getPatients,getMedecins} 

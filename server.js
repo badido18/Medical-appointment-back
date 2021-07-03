@@ -6,17 +6,20 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+require('dotenv').config()
 
 createConnection({
-    "type": "postgres", 
-    "host": "projtdm", 
-    "port": 5432, 
-    "username": "postgres", 
-    "password": "0000", 
-    "database": "projtdm",
+    "type": process.env.DB_TYPE,
+    "host": process.env.DB_HOST, 
+    "port": process.env.DB_PORT, 
+    "username": process.env.DB_USERNAME, 
+    "password": process.env.DB_PASSWORD, 
+    "database": process.env.DB_DNAME,
+    "uri": process.env.DB_URI,
     "synchronize": true, 
     "logging": true, 
-    entities: [
+    "ssl" : { rejectUnauthorized: false },
+    entities : [
         new EntitySchema(require("./types/Medecin.json")),
         new EntitySchema(require("./types/Rdv.json")),
         new EntitySchema(require("./types/User.json")),
@@ -28,14 +31,13 @@ createConnection({
     ]
 })
 .then(() => {
-    const router = require("./routes")
+    const router = require("./routes/index")
     app.use("/", router)
-
     app.listen(8000, () => {
         console.log("Server listening ...")
     })
 })
 .catch(err => {
-    console.log(err.message)
+    console.error(err.message)
 })
 
