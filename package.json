@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "babel-node": "*",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -10,12 +11,14 @@
     "typeorm": "^0.2.34"
   },
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-
+    "start": "node server.js",
+    "test": "nodemon server.js"
   },
   "engines": {
-		"node": "14.x"
+    "node": "14.x"
   },
-  "heroku-run-build-script": true
+  "heroku-run-build-script": true,
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
 }
