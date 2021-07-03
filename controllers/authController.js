@@ -1,7 +1,7 @@
 const { getRepository } = require("typeorm")
 const bcrypt = require('bcrypt')
 
-const generateToken = require('../lib/token')
+const {generateToken} = require('../lib/token')
 const { error, success } = require("../lib/response")
 
 const User = getRepository("user")
@@ -121,11 +121,12 @@ const deleteUser = (req, res) => {
 const login = (req, res) => {
     const { email, password } = req.body;
 
+    console.log(email,password)
     if (!email || !password) {
         res.status(400).send(error("invalid payload: " + JSON.stringify(req.body)))
     }
 
-    User.findOne({ email })
+    User.findOne({ email: email })
     .then(user => {
         if (!user) {
             res.send(error("no account found."))
@@ -136,7 +137,7 @@ const login = (req, res) => {
             if (!isMatch) {
                 res.send(error("incorrect password"))
             } else {
-                const token = generateToken({ id: user[0].id , type: user[0].type})
+                const token = generateToken({ id: user.id , type: user.type})
                 res.send(success("login success !",{id:user.id,type: user.type,token}))
             }
         }
