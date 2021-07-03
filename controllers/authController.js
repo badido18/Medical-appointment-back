@@ -40,6 +40,20 @@ const getMedecins = (req, res) => {
     })
 }
 
+const getPatient = (req,res) => {
+    Patient.findOne({id:req.params.id})
+    .then(patient =>  res.send(success("patient of patientid " + req.params.id, {...patient})))
+    .catch (err => res.send(error(err.message)))
+}
+
+
+const getMedecin = (req,res) => {
+    Medecin.findOne({id:req.params.id})
+    .then(med =>  res.send(success("medcin of medcinId " + req.params.id, {...med})))
+    .catch (err => res.send(error(err.message)))
+}
+
+
 
 const getUser = (req, res) => {
     User.findOne({ id: parseInt(req.params.id) })
@@ -149,4 +163,4 @@ const login = (req, res) => {
 }
 
 
-module.exports = { addUser, deleteUser, login , getUser , getUsers ,getPatients,getMedecins} 
+module.exports = { addUser, deleteUser, login , getUser , getUsers ,getPatients,getMedecins , getMedecin , getPatient} 

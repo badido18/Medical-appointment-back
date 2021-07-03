@@ -1,11 +1,13 @@
 {
-    "name": "conseil",
+    "name": "medecinhorraire",
     "columns": {
         "medecinId": {
-            "type": "int"
+            "type": "int",
+            "primary": true
         },
         "plageHorraireId": {
-            "type": "varchar"
+            "type": "varchar",
+            "primary": true
         }
     }
 }
