@@ -34,6 +34,7 @@ const getMedecins = (req, res) => {
     Medecin.find()
     .then(users => {
         res.send(success("list of medecins : ", users))
+        
     })
     .catch(err => {
         res.send(error(err.message));
