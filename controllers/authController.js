@@ -54,6 +54,31 @@ const getMedecin = (req,res) => {
     .catch (err => res.send(error(err.message)))
 }
 
+const modifMedcin = (req,res) => {
+    Medecin.update({id:req.params.id},{
+        ...req.body
+    })
+    .then(up=> res.send(success("udated succesfully",up)))
+    .catch (err => res.send(error(err.message)))
+}
+
+
+const modifPatient = (req,res) => {
+    Patient.update({id:req.params.id},{
+        ...req.body
+    })
+    .then(up=> res.send(success("udated succesfully",up)))
+    .catch (err => res.send(error(err.message)))
+}
+
+
+const modifUser = (req,res) => {
+    User.update({id:req.params.id},{
+        ...req.body
+    })
+    .then(up=> res.send(success("udated succesfully",up)))
+    .catch (err => res.send(error(err.message)))
+}
 
 
 const getUser = (req, res) => {
@@ -164,4 +189,4 @@ const login = (req, res) => {
 }
 
 
-module.exports = { addUser, deleteUser, login , getUser , getUsers ,getPatients,getMedecins , getMedecin , getPatient} 
+module.exports = { addUser, deleteUser, login , getUser , getUsers ,getPatients,getMedecins , getMedecin , getPatient , modifMedcin,modifPatient,modifUser} 
