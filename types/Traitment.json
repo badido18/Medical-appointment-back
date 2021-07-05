@@ -9,8 +9,36 @@
         "rdvId": {
             "type": "int"
         },
+        "patientId": {
+            "type": "int",
+            "nullable" :true
+        },
+        "medecinId": {
+            "type": "int",
+            "nullable" :true
+        },
+        "plageHorraireId": {
+            "type": "int",
+            "nullable" :true
+        },
+        "date": {
+            "type": "varchar",
+            "nullable" :true
+        },
         "description": {
             "type": "varchar"
+        },
+        "medecinNom": {
+            "type": "varchar",
+            "nullable" :true
+        },
+        "medecinSpeciality": {
+            "type": "varchar",
+            "nullable" :true
+        },
+        "medecinCity": {
+            "type": "varchar",
+            "nullable" :true
         }
     }
 }

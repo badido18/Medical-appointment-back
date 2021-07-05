@@ -10,7 +10,7 @@
     "typeorm": "^0.2.34"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "test": "nodemon server.js"
   },
   "engines": {
