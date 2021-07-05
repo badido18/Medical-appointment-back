@@ -2,6 +2,7 @@ const { getRepository } = require("typeorm")
 const { error, success } = require("../lib/response")
 
 const Trait = getRepository("traitment")
+const Rdv = getRepository("rdv")
 
 const addTrait = (req,res) => {
     const {rdvId , description} = req.body
@@ -31,10 +32,16 @@ const deleteTrait = (req,res) => {
     })
 }
 const getTraits = (req,res) => {
-    Trait.find({rdvId:req.params.id})
+    Trait.findOne({rdvId:req.params.id})
     .then(traits => {
-        res.send(success("liste de traitement : ", traits))
-    })
+		Rdv.findOne({id:traits.rdvId})
+		.then(rdv => {
+		    res.send(success("le traitment ", {...rdv,...traits}))
+		})
+		.catch(err => {
+		    res.send(error(err.message));
+		})}
+    )
     .catch(err => {
         res.send(error(err.message));
     })
